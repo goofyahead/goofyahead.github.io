@@ -1,0 +1,25 @@
+{
+  "name": "portfolio",
+  "authors": [
+    "Alejandro Vidal Rodriguez <goofyahead@gmail.com>"
+  ],
+  "description": "my portfolio site",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
+    "async": "~1.5.2"
+  }
+}

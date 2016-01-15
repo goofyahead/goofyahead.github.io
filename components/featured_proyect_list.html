@@ -1,0 +1,40 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="featured_proyect.html">
+
+<dom-module id="featured-proyect-list">
+
+<style>
+      h3 {
+      	font-family: 'Lato', sans-serif;
+      	font-weight: 700;
+      }
+</style>
+
+<template>
+	<template is="dom-repeat" items="{{proyectList}}">
+    <featured-proyect data={{item}}></featured-proyect>
+  </template>
+</template>
+
+<script>
+Polymer({
+	is: "featured-proyect-list",
+	ready: function() {
+      console.log('featured proyect list component ready');
+      console.log(this.proyectList);
+    },
+    properties: {
+    	proyectList: {
+    		type: Object,
+        observer: 'onChange'
+    	}
+    },
+
+    onChange: function (newValue, oldValue){
+      console.log('changed from ', oldValue, newValue);
+    }
+});
+</script>
+
+</dom-module>

@@ -1,0 +1,97 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,100' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="components/featured_proyect_list.html">
+  <link rel="import" href="components/random_quotes.html">
+  <title>Goofyahead porfolio</title>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header class="row vertical-align">
+
+      <div class="col-md-2 col-xs-4" id="logo">
+        <img class="img-responsive" src="./images/minizoid.jpg">
+      </div>
+
+      <div class="col-md-10 col-xs-8" id="name">
+        <h1 class="text-right text-uppercase text-thin">Alex Vidal</h1>
+        <h3 class="text-right">code lover</h3>
+      </div>
+    </header>
+
+    <hr>
+
+    <template is="dom-bind" id="quotes">
+        <random-quotes quotes={{quotes}}></random-quotes>
+    </template>
+
+    <section class="row" id="starred_proyect">
+      <div class="col-md-12">
+        <img class="img-responsive" src="./images/cover.jpg">
+      </div>
+    </section>
+
+    <section id="featured_proyects">
+      <div class="row">
+        <h2>Featured projects</h2>
+      </div>
+
+      <template is="dom-bind" id="plist"> 
+        <div class="row" id="proyect_list">
+          <featured-proyect-list proyect-list={{info}}> </featured-proyect-list>
+        </div>
+      </template>
+
+    </section>
+
+  </div>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="bower_components/async/dist/async.js"></script>
+  <script type="text/javascript" src="quotes.js"></script>
+  <script>
+  // var quotesFromJson = require()
+  var quotes = document.querySelector('#quotes');
+  console.log(jsonQuotes[0]);
+  quotes.quotes = jsonQuotes;
+
+  var plist = document.querySelector('#plist');
+  var projects = [];
+
+  $.get("https://api.github.com/users/goofyahead/repos?type=public&per_page=100", function (data) {
+    // console.log('data is ', data);
+    async.each(data, function (item, cb){
+      // console.log(item.name);
+      $.ajax({
+        method: "GET",
+        url: "https://raw.githubusercontent.com/goofyahead/" + item.name + "/master/portfolio.json",
+        error: function () {
+          cb();
+        },
+        success: function (file){
+          // console.log('success ', file);
+          projects.push(JSON.parse(file));
+          cb();
+        }
+      });
+
+    }, function (err){
+      if (err) console.log(err);
+      console.log('finished all');
+      plist.info = projects;
+    });
+  });
+  </script>
+</body>
+</html>

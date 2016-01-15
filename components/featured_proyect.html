@@ -1,0 +1,41 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="featured-proyect">
+
+<style>
+      h3 {
+      	font-family: 'Lato', sans-serif;
+      	font-weight: 700;
+        text-transform: capitalize;
+      }
+      img {
+      	object-fit: cover;
+      	height: 350px;
+      }
+</style>
+
+<template>
+	<div class="col-md-3 col-xs-12">
+		<div class="row">
+			<img class="img-responsive col-xs-12" src={{data.picture}}>
+		</div>
+		<h3 class="text-center">{{data.name}}</h3>
+		<p class="text-center"><a href={{data.url}}>Link to project</a></p>
+	</div>  
+</template>
+
+<script>
+Polymer({
+	is: "featured-proyect",
+	ready: function() {
+      console.log('featured proyect component ready', this.data);
+    },
+    properties: {
+    	data: {
+    		type: Object
+    	}
+    }
+});
+</script>
+
+</dom-module>
